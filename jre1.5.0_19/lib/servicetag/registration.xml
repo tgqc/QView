@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<registration_data version="1.0">
+   <environment>
+      <hostname>IBM-L3ADN5H</hostname>
+      <hostId></hostId>
+      <osName>Windows XP</osName>
+      <osVersion>5.1</osVersion>
+      <osArchitecture>x86</osArchitecture>
+      <systemModel>7469AR3</systemModel>
+      <systemManufacturer>LENOVO</systemManufacturer>
+      <cpuManufacturer>GenuineIntel</cpuManufacturer>
+      <serialNumber>L3ADN5H</serialNumber>
+   </environment>
+   <registry urn="urn:st:f742575f-8c54-437c-a12a-9b9ba5164a78" version="1.0">
+      <service_tag>
+         <instance_urn>urn:st:4d6d4856-af54-4d01-9db2-69e800dd5976</instance_urn>
+         <product_name>J2SE 5.0 Runtime Environment</product_name>
+         <product_version>1.5.0_19</product_version>
+         <product_urn>urn:uuid:5c6686aa-fd05-46a6-ba3e-700e2d5f7043</product_urn>
+         <product_parent_urn>urn:uuid:f3c20172-557a-11d7-93d0-d6a41ea318df</product_parent_urn>
+         <product_parent>Java 2 Platform, Standard Edition 5.0</product_parent>
+         <product_defined_inst_id>id=1.5.0_19-b02 x86,dir=C:\Program Files\Java\jre1.5.0_19</product_defined_inst_id>
+         <product_vendor>Sun Microsystems</product_vendor>
+         <platform_arch>x86</platform_arch>
+         <timestamp>2009-08-04 06:06:20 GMT</timestamp>
+         <container>global</container>
+         <source>Windows JRE i586 installer</source>
+         <installer_uid>-1</installer_uid>
+      </service_tag>
+   </registry>
+</registration_data>
