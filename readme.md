@@ -11,7 +11,9 @@ uploaded: 2012
 QView
 =====
 
-##Welcome to QView##
+##Welcome to QView## [![QView](https://github.com/tgqc/QView/raw/master/qview_icon.jpg)] 
+
+
 
 QView is an MQ network explorer, mapping tool and admin console.
 It has some very powerful features, such as the ability to invoke a runmqc like interface on a qmgr node remotely at the click of a button.
