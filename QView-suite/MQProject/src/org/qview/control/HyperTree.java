@@ -230,15 +230,25 @@ public class HyperTree {
                 Iterator i = Peers.iterator();
                 while (i.hasNext()){                
                     String getMgr = repository.getQMgrName((String)i.next());
-                    if ((getMgr != null) && (!existsNode(getMgr))) {
+                    if (getMgr != null) {
                         WMQQMgr connMgr = (WMQQMgr)repository.getFromRepository(getMgr);
                         if ((parent == null) || (!getMgr.equals(parent.getUniqueName()))){
-                            HTNodeBase mgrnode= new HTNodeBase(connMgr);
-                            HTNodes.put(connMgr.getUniqueName(), mgrnode);
-                            node.addChild(mgrnode);
-                            addQMgrChildren(mgrnode, connMgr);
+                            if (!existsNode(getMgr)){
+                                HTNodeBase mgrnode = new HTNodeBase(connMgr);
+                                HTNodes.put(connMgr.getUniqueName(), mgrnode);
+                                node.addChild(mgrnode);
+                                addQMgrChildren(mgrnode, connMgr);
+                            } else {
+                                System.out.println("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+                                HTNodeBase mgrnode = (HTNodeBase) HTNodes.get(connMgr.getUniqueName());
+                                if (mgrnode == null) {
+                                    mgrnode = (HTNodeBase) HTNodes.get(connMgr.getConnName());
+                                }
+                                node.addSibling(mgrnode);
+                                mgrnode.addSibling(node);
+                            }
                         }
-                    }                    
+                    }     
                 }
                 singleNode = false;      
             }
@@ -262,7 +272,7 @@ public class HyperTree {
         return view;         
     }
     public boolean existsNode(String nodeName){
-        return HTNodes.keySet().contains(nodeName); 
+        return HTNodes.keySet().contains(nodeName);
     }
     
     // return this instance, or create new instance

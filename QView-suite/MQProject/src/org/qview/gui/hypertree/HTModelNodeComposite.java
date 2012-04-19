@@ -27,6 +27,8 @@
 package org.qview.gui.hypertree;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -40,7 +42,10 @@ import java.util.Vector;
 class HTModelNodeComposite 
     extends HTModelNode {
 
+    private static HashMap HTModelNodeCompositeMap = new HashMap();
+
     private Vector childrenModels     = null; // childrenModels of this node
+    private Vector siblingsModels     = null; // siblingsModels of this node
 
     private double globalWeight = 0.0;  // sum of childrenModels weight
 
@@ -71,21 +76,80 @@ class HTModelNodeComposite
                          HTModel model) {
         super(node, parent, model);
         this.childrenModels = new Vector();
+        this.siblingsModels = new Vector();
+        HTModelNodeCompositeMap.put(this.getName(), this);
+
 
         HTNode childNode = null;
         HTModelNode childModel = null;
         for (Enumeration e = node.children(); e.hasMoreElements(); ) {
             childNode = (HTNode) e.nextElement();
             if (childNode.isLeafNode()) {
-                childModel = new HTModelNode(childNode, this, model);
+//                childModel = (HTModelNode) HTModelNodeCompositeMap.get(childNode);
+//                if (childModel == null) {
+                    childModel = new HTModelNode(childNode, this, model);
+//                    HTModelNodeCompositeMap.put(childNode.getName(), childModel);
+//                }
             } else {
-                childModel = new HTModelNodeComposite(childNode, this, model);
+//                childModel = (HTModelNodeComposite) HTModelNodeCompositeMap.get(childNode);
+//                if (childModel == null) {
+                    childModel = new HTModelNodeComposite(childNode, this, model);
+//                    HTModelNodeCompositeMap.put(childNode.getName(), childModel);
+//                }
             }
             addChild(childModel);
         }
-        
-        // here the down of the tree is built, so we can compute the weight
+
+        if (this.getParent() == null) {
+            mapSiblings(node);
+        }
+
         computeWeight();
+
+    }
+
+
+    void mapSiblings(HTNode node) {
+        System.out.println("%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%");
+        Iterator i = HTModelNodeCompositeMap.values().iterator();
+        while (i.hasNext()) {
+            HTNode siblingNode = null;
+            HTModelNode siblingModel = null;
+            for (Enumeration f = node.siblings(); f.hasMoreElements(); ) {
+                siblingNode = (HTNode) f.nextElement();
+                System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+    //            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                if (siblingNode != null ) {
+                    System.out.println("%%%%  siblingNode exists!!!   %%%%");
+    //                System.out.println("%%%%  " + HTModelNodeCompositeMap.entrySet() + " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                    if (siblingNode.isLeafNode()) {
+                        System.out.println("%%%%  This HTModelNode  %%%%  " + this.getName());
+                        System.out.println("%%%%  Sibling HTModelNode  %%%%  " + siblingNode.getName());
+                        siblingModel = (HTModelNode) HTModelNodeCompositeMap.get(siblingNode.getName());
+                        if (siblingModel == null) {
+        //                    siblingModel = new HTModelNode(siblingNode, this, model);
+        //                    HTModelNodeCompositeMap.put(siblingNode, this);
+                        }
+                    } else {
+                        System.out.println("%%%%  This HTModelNodeComposite  %%%%  " + this.getName());
+                        System.out.println("%%%%  Sibling HTModelNodeComposite  %%%%  " + siblingNode.getName());
+                        siblingModel = (HTModelNodeComposite) HTModelNodeCompositeMap.get(siblingNode.getName());
+                        if (siblingModel == null) {
+        //                    siblingModel = new HTModelNodeComposite(siblingNode, this, model);
+        //                    HTModelNodeCompositeMap.put(siblingNode, this);
+                        }
+                    }
+                    if (siblingModel != null && !(this.getName().equals(siblingNode.getName())) ) {
+                        System.out.println("%%%% siblingModel %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                        System.out.println("%%%%  " + siblingModel.toString() + "  %%%%");
+                        addSibling(siblingModel);
+                    }
+                }
+            }
+        }
+        System.out.println("%%%%  siblingsModels:  " + siblingsModels.toString());
+        // here the down of the tree is built, so we can compute the weight
+//        computeWeight();
     }
 
     void addNewChild(HTree hyperTree, HTNode parentNode, HTNode childNode){
@@ -120,11 +184,16 @@ class HTModelNodeComposite
         globalWeight= 0;
 //        weight= 1;
         HTModelNode childModel = null;
-         
+
+        for (Enumeration f = siblings(); f.hasMoreElements(); ) {
+            childModel = (HTModelNode) f.nextElement();
+            globalWeight += childModel.getWeight();
+        }
         for (Enumeration e = children(); e.hasMoreElements(); ) {
             childModel = (HTModelNode) e.nextElement();
             globalWeight += childModel.getWeight();
-        } 
+        }
+
         if (globalWeight != 0.0) {
             weight += Math.log(globalWeight);
         }
@@ -143,6 +212,14 @@ class HTModelNodeComposite
     Enumeration children() {
         return childrenModels.elements();
     }
+    /**
+     * Returns the siblingsModels of this node, 
+     * in an Enumeration.
+     * @return the siblingsModels of this node
+     */
+    Enumeration siblings() {
+        return siblingsModels.elements();
+    }
 
     /**
      * 
@@ -154,7 +231,16 @@ class HTModelNodeComposite
     void addChild(HTModelNode child) {
         childrenModels.addElement(child);
     }
-
+    /**
+     * Adds the HTModelNode as a siblingModels.
+     * 
+     * 
+     * @param sibling    a sibling
+     */
+    void addSibling(HTModelNode sibling) {
+        siblingsModels.addElement(sibling);
+    }
+    
     /**
      * Returns <CODE>false</CODE> as this node
      * is an instance of HTModelNodeComposite.

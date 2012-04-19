@@ -63,7 +63,7 @@ public class EntryPoint  implements Serializable {
         entryPointMap.put("Monitoring Enabled", Integer.valueOf("1"));        
         entryPointMap.put("Monitoring Interval", Integer.valueOf("300"));
         entryPointMap.put("Polling Enabled", Integer.valueOf("1"));
-        entryPointMap.put("Explore Peers", Integer.valueOf("0"));
+        entryPointMap.put("Explore Peers", Integer.valueOf("1"));
         entryPointMap.put("Mask - HostName", ".*");
         entryPointMap.put("Mask - QMgrName", ".*");
         entryPointMap.put("Mask - Exclude", "");
@@ -155,7 +155,7 @@ public class EntryPoint  implements Serializable {
     public static void setRootAttrs() {
         rootAttrMap.put("Application", THIS_APPLICATION_NAME);
         rootAttrMap.put("ApplVersion", THIS_VERSION_NUMBER);
-        rootAttrMap.put("Enable Admin", Integer.valueOf("0"));
+        rootAttrMap.put("Enable Admin", Integer.valueOf("1"));
         rootAttrMap.put("Enable LclAddr", Integer.valueOf("0"));
         rootAttrMap.put("Enable Hop", Integer.valueOf("0"));        
     }

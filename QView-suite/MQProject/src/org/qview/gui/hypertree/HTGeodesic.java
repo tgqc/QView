@@ -34,6 +34,7 @@ import java.awt.Shape;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.QuadCurve2D;
+import java.util.HashMap;
 //QUAD
 
 
@@ -246,6 +247,15 @@ class HTGeodesic {
 
   /* --- Draw --- */
 
+    /**
+     * Draws this geodesic.
+     *
+     * @param g    the graphic context
+     */
+    void draw(Graphics g, int lineType) {
+        fGeodesicType = lineType;
+        draw(g);
+    }
     /**
      * Draws this geodesic.
      *

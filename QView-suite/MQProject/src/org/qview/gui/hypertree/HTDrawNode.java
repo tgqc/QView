@@ -220,6 +220,16 @@ class HTDrawNode {
      * @param g    the graphic context
      */
     void drawBranches(Graphics g) {}
+    /**
+     * Draws the branches from this fNodeModel to 
+     * its siblings (previously mapped).
+     * Overidden by HTDrawNodeComposite
+     * 
+     * 
+     * 
+     * @param g    the graphic context
+     */
+    void drawSiblingBranches(Graphics g) {}
 
     /**
      * Draws this fNodeModel.

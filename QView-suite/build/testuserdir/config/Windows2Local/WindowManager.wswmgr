@@ -3,8 +3,8 @@
 <windowmanager version="2.1">
     <main-window>
   <joined-properties
-   x="64"
-   y="67"
+   x="57"
+   y="28"
    width="1152"
    height="666"
    relative-x="0.0"
@@ -41,12 +41,12 @@
   <bounds x="422" y="177" width="537" height="325" />
     </editor-area>
     <screen width="1280" height="800"/>
-    <active-mode name="anonymousMode_1"/>
+    <active-mode name="editor"/>
     <toolbar configuration="Standard" preferred-icon-size="24"/>
     <tc-list>
-  <tc-id id="OutputTopComponent"/>
-  <tc-id id="NodeExplorerTopComponent"/>
   <tc-id id="HTreeTopComponent"/>
+  <tc-id id="NodeExplorerTopComponent"/>
   <tc-id id="properties"/>
+  <tc-id id="OutputTopComponent"/>
     </tc-list>
 </windowmanager>

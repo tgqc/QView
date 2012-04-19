@@ -58,6 +58,19 @@ public interface HTNode {
     public Enumeration children();
 
     /**
+     * Returns the siblings of this node
+     * in an Enumeration.
+     * If this object does not have siblings,
+     * it should return an empty Enumeration,
+     * not <CODE>null</CODE>.
+     * All objects contained in the Enumeration
+     * should implements HTNode.
+     *
+     * @return    an Enumeration containing siblings of this node
+     */
+    public Enumeration siblings();
+
+    /**
      * Checks if this node is a leaf or not.
      * A node could have no children and still not
      * be a leaf.
@@ -66,7 +79,15 @@ public interface HTNode {
      *            <CODE>false</CODE> otherwise
      */
     public boolean isLeafNode();
-    
+
+     /**
+     * Checks if this node is the root node.
+     *
+     * @return    <CODE>true</CODE> if this node is the root;
+     *            <CODE>false</CODE> otherwise
+     */
+    public boolean isRootNode();
+
     /**
      * Returns the name of this node.
      * Used to display a label in the hyperbolic tree.

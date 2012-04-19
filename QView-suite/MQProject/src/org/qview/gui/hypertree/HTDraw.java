@@ -170,6 +170,9 @@ class HTDraw {
     void drawBranches(Graphics g) {
         fDrawRoot.drawBranches(g);
     }
+    void drawSiblingBranches(Graphics g) {
+        fDrawRoot.drawSiblingBranches(g);
+    }
 
     /**
      * Draws the nodes of the hyperbolic tree.

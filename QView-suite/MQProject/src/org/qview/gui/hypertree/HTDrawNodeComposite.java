@@ -28,7 +28,9 @@ package org.qview.gui.hypertree;
 
 import java.awt.Graphics;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -42,9 +44,14 @@ import java.util.Vector;
 class HTDrawNodeComposite 
     extends HTDrawNode {
 
+    private static HashMap HTDrawNodeCompositeMap = new HashMap();
+    private static HashMap drawnPeerMap = new HashMap();
+    //private Hashtable fGeodesicsTable = new Hashtable();
+
     private HTModelNodeComposite fNodeModel      = null; // encapsulated HTModelNode
     private Vector               fChildrenDraw  = null; // fChildrenDraw of this fNodeModel
-    private Hashtable            fGeodesics = null; // fGeodesics linking the 
+    private Vector               fSiblingsDraw  = null; // fSiblingsDraw of this fNodeModel
+    private Hashtable            fGeodesics = new Hashtable(); // fGeodesics linking the
                                                    // fChildrenDraw
 
 
@@ -65,9 +72,12 @@ class HTDrawNodeComposite
     HTDrawNodeComposite(HTDrawNodeComposite fatherDraw, 
                         HTModelNodeComposite nodeModel, HTDraw modelDraw) {
         super(fatherDraw, nodeModel, modelDraw);
+        HTDrawNodeCompositeMap.put(this.getName(), this);
         this.fNodeModel = nodeModel;
         this.fChildrenDraw = new Vector();
-        this.fGeodesics = new Hashtable();
+        this.fSiblingsDraw = new Vector();
+        //this.fGeodesics = new Hashtable();
+        //this.drawnPeerMap = new HashMap();
 
         HTModelNode childModel = null;
         HTDrawNode childDraw = null;
@@ -77,12 +87,21 @@ class HTDrawNodeComposite
         for (Enumeration e = nodeModel.children(); e.hasMoreElements(); ) {
             childModel = (HTModelNode) e.nextElement();
             if (childModel.isLeaf()) {
-                childDraw = new HTDrawNode(this, childModel, modelDraw);
+//                childDraw = (HTDrawNode) HTDrawNodeCompositeMap.get(childModel);
+//                if (childDraw == null) {
+                    childDraw = new HTDrawNode(this, childModel, modelDraw);
+//                    HTDrawNodeCompositeMap.put(childModel.getName(), childDraw);
+//                }
             } else {
-                childDraw = new HTDrawNodeComposite(this, 
-                                      (HTModelNodeComposite) childModel, modelDraw);
+//                childDraw = (HTDrawNodeComposite) HTDrawNodeCompositeMap.get(childModel);
+//                if (childDraw == null) {
+                    childDraw = new HTDrawNodeComposite(this,
+                                          (HTModelNodeComposite) childModel, modelDraw);
+//                    HTDrawNodeCompositeMap.put(childModel.getName(), childDraw);
+//                }
             }
             addChild(childDraw);
+
             if (first) {
                 brotherDraw = childDraw;
                 first = false;
@@ -96,6 +115,70 @@ class HTDrawNodeComposite
                 childDraw.setBrother(brotherDraw);
                 brotherDraw = childDraw;
             }  
+        }
+
+        if (nodeModel.getParent() == null) {
+            mapSiblings();
+        }
+
+
+    }
+
+    void mapSiblings() {
+        System.out.println("&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&");
+        Iterator i = HTDrawNodeCompositeMap.values().iterator();
+        while (i.hasNext()) {
+            HTDrawNodeComposite nextNode = (HTDrawNodeComposite) i.next();
+            HTModelNodeComposite nodeModel = (HTModelNodeComposite) nextNode.getHTModelNode();
+            HTModelNode siblingModel = null;
+            HTDrawNode siblingDraw = null;
+//            HTDrawNode brotherDraw = null;
+            
+//            boolean first = true;
+//            boolean second = false;
+            for (Enumeration f = nodeModel.siblings(); f.hasMoreElements(); ) {
+                System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                siblingModel = (HTModelNode) f.nextElement();
+                if (siblingModel != null) {
+                    System.out.println("&&&&  siblingModel exists!!!   &&&&");
+                    if (siblingModel.isLeaf()) {
+                        System.out.println("&&&&  HTDrawNode  &&&&  " + siblingModel.getName());
+                        siblingDraw = (HTDrawNode) HTDrawNodeCompositeMap.get(siblingModel.getName());
+                        if (siblingDraw == null) {
+        //                    siblingDraw = new HTDrawNode(this, siblingModel, modelDraw);
+        //                    HTDrawNodeCompositeMap.put(siblingModel, this);
+                        }
+                    } else {
+                        System.out.println("&&&&  HTDrawNode  &&&&  " + siblingModel.getName());
+                        siblingDraw = (HTDrawNodeComposite) HTDrawNodeCompositeMap.get(siblingModel.getName());
+                        if (siblingDraw == null) {
+        //                    siblingDraw = new HTDrawNodeComposite(this,
+        //                                          (HTModelNodeComposite) siblingModel, modelDraw);
+        //                    HTDrawNodeCompositeMap.put(siblingModel, this);
+                        }
+                    }
+                }
+                System.out.println("&&&& siblingDraw &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                System.out.println("&&&&  siblingDraw:  " + siblingDraw.toString() + "  &&&&");
+                this.addSibling(siblingDraw);
+                nextNode.addSibling(siblingDraw);
+                System.out.println("&&&&  fSiblingsDraw:  " + fSiblingsDraw.toString());
+    //            ((HTDrawNodeComposite) siblingDraw).removeSibling(this);
+
+//                if (first) {
+//                    brotherDraw = siblingDraw;
+//                    first = false;
+//                    second = true;
+//                } else if (second) {
+//                    siblingDraw.setBrother(brotherDraw);
+//                    brotherDraw.setBrother(siblingDraw);
+//                    brotherDraw = siblingDraw;
+//                    second = false;
+//                } else {
+//                    siblingDraw.setBrother(brotherDraw);
+//                    brotherDraw = siblingDraw;
+//                }
+            }
         }
     }
 
@@ -153,6 +236,12 @@ class HTDrawNodeComposite
     Enumeration children() {
         return fChildrenDraw.elements();
     }
+    /**
+     * * @return the fSiblingDraw of this fNodeModel
+     * */
+    Enumeration siblings() {
+        return fSiblingsDraw.elements();
+    }
 
     /**
      * 
@@ -167,6 +256,17 @@ class HTDrawNodeComposite
         fChildrenDraw.addElement(childDraw);
         fGeodesics.put(childDraw, new HTGeodesic(getCoordinates(), 
                                             childDraw.getCoordinates()));
+    }
+    /**
+     * Create HTDrawNode fSiblingsDraw for node sibling.
+     * @param siblingDraw    the siblingDraw
+     */
+    void addSibling(HTDrawNode siblingDraw) {
+        fSiblingsDraw.addElement(siblingDraw);
+        fGeodesics.put(siblingDraw, new HTGeodesic(getCoordinates(), siblingDraw.getCoordinates()));
+    }
+    void removeSibling(HTDrawNode siblingDraw) {
+        fSiblingsDraw.removeElement(siblingDraw);
     }
 
 
@@ -196,6 +296,17 @@ class HTDrawNodeComposite
             }
             
         }
+
+//        HTDrawNode siblingDraw = null;
+//        for (Enumeration e = siblings(); e.hasMoreElements(); ) {
+//            siblingDraw = (HTDrawNode) e.nextElement();
+//            siblingDraw.refreshScreenCoordinates(sOrigin, sMax);
+//            HTGeodesic geod = (HTGeodesic) fGeodesics.get(siblingDraw);
+//            if (geod != null) {
+//                geod.refreshScreenCoordinates(sOrigin, sMax);
+//            }
+//
+//        }
     }
 
 
@@ -213,6 +324,7 @@ class HTDrawNodeComposite
      */
     void drawBranches(Graphics g) {
         HTDrawNode childDraw = null;
+        HTDrawNode siblingDraw = null;
 
         for (Enumeration e = children(); e.hasMoreElements(); ) {
             childDraw = (HTDrawNode) e.nextElement();
@@ -220,8 +332,44 @@ class HTDrawNodeComposite
             if (geod != null) {
                 geod.draw(g);
             }
-            childDraw.drawBranches(g); 
+            childDraw.drawBranches(g);
+            childDraw.drawSiblingBranches(g);
         }
+    }
+    /**
+     * Draws the branches from this fNodeModel to
+     * its fSiblingDraw.
+     *
+     *
+     *
+     *
+     *
+     * @param g    the graphic context
+     */
+    void drawSiblingBranches(Graphics g) {
+        HTDrawNode siblingDraw = null;
+        System.out.println("#######################  " + this.getName());
+        System.out.println("####  " + fSiblingsDraw.toString());
+// this could be recursive - peer to peer
+        for (Enumeration e = siblings(); e.hasMoreElements(); ) {
+            siblingDraw = (HTDrawNode) e.nextElement();
+//            ((HTDrawNodeComposite) siblingDraw).removeSibling(this);
+            HTGeodesic geod = (HTGeodesic) fGeodesics.get(siblingDraw);
+                       
+            System.out.println("###################################################");
+            System.out.println("####  " + geod.toString());
+//            if (!drawnPeerMap.containsKey(this.getName() + siblingDraw.getName()) && !drawnPeerMap.containsKey(this.getName() + siblingDraw.getName() + this.getName())) {
+            if (geod != null) {
+                geod.draw(g, 0);
+//                drawnPeerMap.put(this.getName() + siblingDraw.getName(),null);
+//                drawnPeerMap.put(siblingDraw.getName() + this.getName(),null);
+//                ((HTDrawNodeComposite) siblingDraw).removeSibling(this);
+//                removeSibling(siblingDraw);
+            }
+//            }
+            siblingDraw.drawSiblingBranches(g);
+        }
+
     }
 
     /**
@@ -258,9 +406,9 @@ class HTDrawNodeComposite
         
         if (! fChildrenDraw.isEmpty()) {
             HTDrawNode childDraw = (HTDrawNode) fChildrenDraw.firstElement();
-            HTCoordS zC = childDraw.getScreenCoordinates();      
+            HTCoordS zC = childDraw.getScreenCoordinates();
             int dC = fzs.getDistance(zC);
-            
+
             if (space == -1) {
                 return dC;
             } else {
@@ -269,6 +417,7 @@ class HTDrawNodeComposite
         } else {
             return space;
         }
+
     }
     
 
@@ -292,6 +441,7 @@ class HTDrawNodeComposite
                 geod.rebuild();
             }
         }
+
     }
 
     void translate(HTCoordE dest) {
@@ -306,6 +456,7 @@ class HTDrawNodeComposite
                 geod.rebuild();
             }
         }
+
     }
     
     /**
@@ -381,6 +532,7 @@ class HTDrawNodeComposite
                 geod.setQuadMode(mode);
             }
         }
+
     }
 
     /**
@@ -401,6 +553,7 @@ class HTDrawNodeComposite
                 geod.rebuild();
             }
         }
+
     }
 
 // NEU
@@ -422,6 +575,7 @@ class HTDrawNodeComposite
                 geod.rebuild();
             }
         }
+
     }
 // FIN NEU
 
