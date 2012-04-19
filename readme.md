@@ -22,14 +22,16 @@ It has some very powerful features, such as the ability to invoke a runmqc like 
 ###What does QView do?
 Qview:
 
-*Automagically **maps your MQ network**, including queue and channel objects.
-*Displays an interactive and **printable tree view** of your network.
-*Provides **configurable MONITORING** including queue depth and channel status, with sensible defaults.
-*Provides a One-click **EDITABLE list of attributes** for each of your MQ objects.
-*Provides a **‘runmqsc’ type interface** for each Queue Manger node at the click of a button.
-*Provides 2 step **channel stop/start**, and **queue put and get disable/enable**.
-*Will read and **parse messages** from and to a queue.
-*Will write back messages to a queue.
+* Automagically **maps your MQ network**, including queue and channel objects.
+* Displays an interactive and **printable tree view** of your network.
+* Provides **configurable MONITORING** including queue depth and channel status, with sensible defaults.
+* Provides a One-click **EDITABLE list of attributes** for each of your MQ objects.
+* Provides a **‘runmqsc’ type interface** for each Queue Manger node at the click of a button.
+* Provides 2 step **channel stop/start**, and **queue put and get disable/enable**.
+* Will read and **parse messages** from and to a queue.
+* Will **write back** or move read messages to any queue.
+
+Much of the functionality could do with some polishing.
 
 ###QView is functional.
 
@@ -39,6 +41,13 @@ I have used the utility in my work as an MQ administrator, but it is still a bit
 
 The utility is based on the Netbeans 6 platform, and to be honest, the implementation of platform components is still a bit hacky. Please help refactor changes if you know how things SHOULD be done.
 
+###Documentation and code commenting are sparse
+The project was begun in a hurry. Hopefully, most code will be self explanatory. Please help out with documentation and code comments where you can, and email me if you need any help unthreading it.
+
 ###Too big?
 
 The package is VERY large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let me know.
+
+###A big thanks
+* To the Netbeans project for their work on the platform (http://netbeans.org/features/platform/). A great way to get up and running quickly.
+* To Chistophe Bouthier (http://christ.bouthier.free.fr/t) for his work on the hypertree library.
