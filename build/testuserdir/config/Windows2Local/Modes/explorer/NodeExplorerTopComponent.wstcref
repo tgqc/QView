@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tc-ref version="2.2">
+    <module name="org.qview.gui" spec="1.0" />
+    <tc-id id="NodeExplorerTopComponent" />
+    <state opened="true" />
+</tc-ref>

@@ -1,0 +1,7 @@
+This pre-beta version of the 'QView' program may be freely used and distributed under the following terms:
+1) Licensed software - This product is copyrighted and licensed, not sold, and may not be modified except by agreement.
+2) Non-Warranted - THE CREATORS MAKE NO CLAIMS OR WARRANTIES EITHER EXPRESS OR IMPLIED AS TO FITNESS FOR PURPOSE.
+3) Limited liability - THE CREATORS ACCEPT NO LIABILITY FOR THE FOLLOWING: i) LOSS OF OR DAMAGE TO DATA. ii) INDIRECT OR INCIDENTAL DAMAGES. 
+
+© Copyright 2006, Tim Goodwill, Trung Nguyen. Canberra Australia.
+Comments and bug-reports to: mqsysadmin@gmail.com

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+    <module name="org.qview.gui/040000" spec="1.0.40000"/>
+    <instanceof class="java.awt.Component"/>
+    <instanceof class="java.awt.Container"/>
+    <instanceof class="java.awt.MenuContainer"/>
+    <instanceof class="java.awt.image.ImageObserver"/>
+    <instanceof class="java.io.Externalizable"/>
+    <instanceof class="java.io.Serializable"/>
+    <instanceof class="java.lang.Object"/>
+    <instanceof class="javax.accessibility.Accessible"/>
+    <instanceof class="javax.swing.JComponent"/>
+    <instanceof class="org.openide.explorer.ExplorerManager$Provider"/>
+    <instanceof class="org.openide.util.HelpCtx$Provider"/>
+    <instanceof class="org.openide.util.Lookup$Provider"/>
+    <instanceof class="org.openide.windows.TopComponent"/>
+    <instanceof class="org.qview.gui.nbexplorer.NodeExplorerTopComponent"/>
+    <serialdata class="org.qview.gui.nbexplorer.NodeExplorerTopComponent">
+        ACED0005737200426F72672E71766965772E6775692E6E626578706C6F7265722E4E6F64654578706C6F726572546F70436F
+        6D706F6E656E74245265736F6C7661626C6548656C70657200000000000000010200007870
+    </serialdata>
+</settings>
