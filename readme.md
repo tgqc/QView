@@ -1,13 +1,13 @@
 ---
-title: QView\
-description: QView MQ network explorer\
-author: Tim Goodwill\
-tags: MQ, queue, MQ network, MQ administration\
-created:  2007\
-uploaded: 2012\
+title: QView
+description: QView MQ network explorer
+author: Tim Goodwill
+tags: MQ, queue, MQ network, MQ administration
+created:  2006
+uploaded: 2012
 ---
 
-![QView](https://github.com/tgqc/QView/raw/master/qview_icon.jpg) QView 
+![QView](https://github.com/tgqc/QView/raw/master/qview_icon.jpg)   QView 
 =====
 
 ##Welcome to QView##
