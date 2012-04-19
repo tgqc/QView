@@ -1,0 +1,165 @@
+/*
+ * LeafNode.java
+ *
+ * Based on the 'PropChildren' class, Netbeans project,
+ * Created on June 13, 2005, 2:08 PM
+ *
+ * This node constructs the 'parent' org.openide.nodes.Node objects,
+ * and refers to the 'Tree' class to extrapolate children.
+ */
+
+package org.myorg.gui.nbnode;
+
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.ResourceBundle;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import org.myorg.gui.ModelAdapter;
+import org.myorg.model.ObjectRepository;
+import org.myorg.model.WMQObject;
+import org.myorg.model.WMQQMgr;
+import org.openide.actions.NewAction;
+import org.openide.actions.OpenLocalExplorerAction;
+import org.openide.actions.PropertiesAction;
+import org.openide.actions.ToolsAction;
+import org.openide.nodes.AbstractNode;
+import org.openide.nodes.Children;
+import org.openide.nodes.Node;
+import org.openide.nodes.Sheet;
+import org.openide.util.NbBundle;
+import org.openide.util.actions.SystemAction;
+
+/**
+ *
+ * @author Administrator
+ */
+public class ParentNode extends AbstractNode {    
+    private ObjectRepository repository;
+    private static ResourceBundle bundle = NbBundle.getBundle(LeafNode.class);
+    private WMQObject mqobject = null;
+    private String key;
+    private String nodeType;
+    private WMQQMgr mgr = null;
+//    private WMQObject mqobject = new WMQObject();
+    private ChangeListener listener;
+     
+    public ParentNode(String key) {
+        super(new Tree());
+        this.key = key;
+        setIconBase("org/myorg/gui/LeafIcon");
+        //setDefaultAction(SystemAction.get(PropertiesAction.class));
+        super.setName(key);
+        setShortDescription(bundle.getString("HINT_LeafNode"));
+        RootNode.findInstance().addToNBNodes(this.getName(), this);
+    }
+   /* Constructors with Children.Keys refers to the 'Tree' class to extrapolate children
+    */
+    public ParentNode(String key, Children.Keys newKeys) {
+        super(newKeys);
+        this.key = key;
+        super.setName(key);           
+        setShortDescription(bundle.getString("HINT_LeafNode"));
+        RootNode.findInstance().addToNBNodes(this.getName(), this);
+    }
+    public ParentNode(String key, Children.Keys newKeys, String networkName, String type) {
+        this(key, newKeys);
+        this.nodeType = type;
+        this.setValue("networkName", networkName);
+        this.setValue("nodeType", type);
+        if (((type == "Queues") || (type == "Channels")) && (this.getValue("system") == null)){
+            this.setValue("system", "show");
+        }
+        repository = ObjectRepository.findInstance(networkName);
+        setIconBase("org/myorg/gui/" + type + "Icon");
+        setShortDescription(bundle.getString("HINT_" + type));
+    }
+     public ParentNode(WMQObject obj, Children.Keys newKeys, String networkName, String type) {
+        this(obj.getUniqueName(), newKeys);
+        this.setDisplayName(obj.getCaption());
+        this.mqobject = obj;
+        this.nodeType = type;
+        this.setValue("networkName", networkName);
+        this.setValue("nodeType", type);
+        repository = ObjectRepository.findInstance(networkName);
+        setIconBase("org/myorg/gui/" + type + "Icon");
+        setShortDescription(bundle.getString("HINT_" + type));
+    } 
+    
+    public Action[] getActions(boolean context) {
+        Action[] actions;
+        Action[] result;
+        Action[] newActions;
+        
+        actions = new Action[] {            
+                SystemAction.get(ToolsAction.class),
+                SystemAction.get(RefreshNodeAction.class),
+                SystemAction.get(OpenLocalExplorerAction.class),
+                SystemAction.get(PropertiesAction.class),                
+                null,                
+        };        
+        result = ModelAdapter.getContext(this);
+        
+        int actionsSize = actions.length;
+        int resultSize = result.length;        
+        newActions = new Action[actionsSize+resultSize];
+        
+        for (int i=0;i<actionsSize;i++){
+                newActions[i] = actions[i];
+        }
+        for (int j=0;j<result.length;j++){
+            newActions[actionsSize+j] = result[j];
+        }        
+        return newActions;
+    }
+    
+    public void getProperties(){
+        SystemAction.get(PropertiesAction.class);
+    }
+    
+    public WMQObject getMQObject(){
+        return this.mqobject;
+    }
+        
+    public Node cloneNode() {
+        return new LeafNode(key);
+    }
+    protected Sheet createSheet() {    
+        Sheet cleanSheet = super.createSheet();
+        PropSheet propSheet = new PropSheet(cleanSheet, this);
+        Sheet sheet = propSheet.getPropSheet();
+        PropertiesNotifier.addChangeListener(listener = new
+                ChangeListener() {
+            public void stateChanged(ChangeEvent ev) {
+                firePropertyChange("value", null, null);
+                refreshSheet();
+            }
+        });
+        return sheet;
+    }
+    protected Sheet refreshSheet() {        
+        Sheet sheet = super.getSheet();        
+        PropSheet propSheet = new PropSheet(sheet, this);       
+        return sheet;        
+    }
+    protected void finalize() throws Throwable {
+        super.finalize();
+        if (listener != null)
+            PropertiesNotifier.removeChangeListener(listener);
+    }
+    public boolean canRename() {
+        return false;
+    }
+    public void setName(String nue) {
+//        PropertiesNotifier.changed();
+    }
+    public boolean canDestroy() {
+        return false;
+    }
+    public void destroy() throws IOException {
+//        PropertiesNotifier.changed();
+    }    
+
+}

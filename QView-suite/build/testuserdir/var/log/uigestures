@@ -1,0 +1,22 @@
+<record>
+  <date>2009-10-13T11:45:35</date>
+  <millis>1255394735750</millis>
+  <sequence>5</sequence>
+  <level>FINEST</level>
+  <thread>10</thread>
+  <message>SCREEN SIZE</message>
+  <param>1280</param>
+  <param>800</param>
+  <param>1</param>
+</record>
+<record>
+  <date>2009-10-13T11:45:43</date>
+  <millis>1255394743812</millis>
+  <sequence>26</sequence>
+  <level>INFO</level>
+  <thread>11</thread>
+  <message>MEMORY</message>
+  <key>MEMORY</key>
+  <catalog>&lt;null&gt;</catalog>
+  <param>2088730624</param>
+</record>

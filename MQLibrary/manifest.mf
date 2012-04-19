@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module: com.ibm.mq
-OpenIDE-Module-Localizing-Bundle: com/ibm/mq/Bundle.properties
-OpenIDE-Module-Specification-Version: 1.0
-

@@ -1,0 +1,126 @@
+/*
+ * GuiAdapter.java
+ *
+ * Created on 11 December 2006, 13:49
+ *
+ * To change this template, choose Tools | Template Manager
+ * and open the template in the editor.
+ */
+
+package org.myorg.model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.myorg.gui.BrowseTopComponent;
+import org.myorg.gui.OutputTopComponent;
+import org.myorg.gui.hypertree.HTNode;
+import org.myorg.gui.hypertree.HTreeTopComponent;
+import org.myorg.gui.hypertree.HyperView;
+import org.myorg.gui.nbnode.NodeExplorerTopComponent;
+import org.myorg.gui.nbnode.RootNode;
+import org.myorg.mqinterface.Discovery;
+import org.myorg.mqinterface.MessageUtils;
+import org.openide.windows.TopComponent;
+
+/**
+ *
+ * @author pzssw6
+ */
+public class GuiAdapter {
+    
+    private static GuiAdapter instance;
+    
+    /**
+     * Creates a new instance of GuiAdapter
+     */
+    public GuiAdapter() {
+        instance = this;
+    }
+    
+    public static GuiAdapter findInstance() {
+        if (instance == null) {
+            instance = new GuiAdapter();            
+        }
+        return instance;
+    }
+    
+    public void sendToOutputWindow(String output){
+//        OutputTopComponent otc = OutputTopComponent.findInstance();
+//        otc.setText(output);
+//        otc.requestActive();
+    }
+    public void addToOutputWindow(String output){
+//        OutputTopComponent otc = OutputTopComponent.findInstance();
+//        otc.addText(output);
+//        otc.requestActive();
+    }
+
+
+//---browse window-----------------------------------------------------------    
+    
+    public BrowseTopComponent openBrowse(WMQQueue queue){
+        BrowseTopComponent btc = BrowseTopComponent.findInstance();
+        btc.setQueue(queue);        
+        TopComponent win = btc;
+            win.open();
+            win.requestActive();
+            
+        if (btc.getQueueName() != queue.getCaption()) {
+            btc.setQueue(queue);
+        }      
+        
+        return btc;
+    }
+    
+    public void browseMsgs(WMQQueue queue, boolean convert) {        
+        BrowseTopComponent btc = openBrowse(queue);
+        new MessageUtils(queue, btc, convert);
+    }
+//    public static void putMsgs(WMQQueue queue, ArrayList msgList) {                                      
+//        BrowseTopComponent btc = openBrowse(queue);      
+//        new MessageUtils(queue, btc, msgList);
+////        Discovery disc = new Discovery(); // Not good, needs qdepth update, but this currently forces gui reset.
+//    }
+    public void openPut(WMQQueue queue) {                                      
+        // simply opens browse window for input.
+        BrowseTopComponent btc = openBrowse(queue);        
+    }
+    public void putMsgs(WMQQueue queue, Object window, ArrayList msgList) {                                      
+        // put msgs to queue
+        System.out.println("msgList " + msgList.size());
+        new MessageUtils(queue, window, msgList);
+    }
+    
+    public void deleteMsgs(WMQQueue queue, Object window, ArrayList msgList){
+        BrowseTopComponent btc = (BrowseTopComponent) window;
+        new MessageUtils(queue, btc, msgList, "delete");
+//        Discovery disc = new Discovery(); // Not good, needs qdepth update, but this currently forces gui reset.
+    }
+    
+    public void displayMessages(Object window, ArrayList msgList){
+        System.out.println("%%%%%% display messages " + window.toString() + " " + msgList.toString());
+        BrowseTopComponent btc = (BrowseTopComponent) window;
+        // TODO
+        btc.setMessageList(msgList);
+        btc.displayBrowse();        
+    } 
+    
+//---output window------------------------------------------------------------        
+    
+    public void refreshProps() {
+        RootNode.refreshNode();        
+    }
+    // refresh nodes
+    public void refreshNode() { 
+        NodeExplorerTopComponent.findInstance().requestActive();
+        RootNode.refreshNode(); 
+        HTreeTopComponent.refreshAll();
+    }
+    public void refreshNode(String instanceName) {        
+        NodeExplorerTopComponent.findInstance().requestActive();
+        RootNode.refreshNode();        
+        // find seleted HT node name in order to recenter after refresh
+        HTreeTopComponent.findInstance(instanceName);
+        HTreeTopComponent.refreshInstance(instanceName);
+    }
+}

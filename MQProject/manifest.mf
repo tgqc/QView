@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module: org.qview.gui/040000
-OpenIDE-Module-Implementation-Version: 040000
-OpenIDE-Module-Layer: org/qview/gui/layer.xml
-OpenIDE-Module-Localizing-Bundle: org/qview/gui/Bundle.properties
-
