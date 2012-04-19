@@ -38,6 +38,6 @@ I have used the utility in my work as an MQ administrator, but it is still a bit
 
 The utility is based on the Netbeans 6 platform, and to be honest, the implementation of platform components is still a bit hacky. Please help refactor changes if you know how things SHOULD be done.
 
-##Too big?###
+###Too big?###
 
 The package is VERY large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let me know.
