@@ -7,10 +7,10 @@ created:  2007\
 uploaded: 2012\
 ---
 
+![QView](https://github.com/tgqc/QView/raw/master/qview_icon.jpg)
+
 QView 
 =====
-
-[![QView](https://github.com/tgqc/QView/raw/master/qview_icon.jpg)]
 
 ##Welcome to QView##
 
