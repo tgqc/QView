@@ -53,6 +53,7 @@ The project was begun in a hurry. Hopefully, most code will be self explanatory.
 ###Too big?
 
 The package is VERY large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let me know.
+The QView-suite folder is a drop-in netbeans project with a bunch of superfluous files. The guts of the project is in the QView-suite/MQProject folder, but as a Netbeans Platform application, the app is best navigated using the Netbeans IDE.
 
 ###A big thanks
 * To Trung Nguyen for the use of and opportunity to disect his extensive original MQ PCF libraries.
