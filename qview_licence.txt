@@ -1,7 +1,4 @@
-This pre-beta version of the 'QView' program may be freely used and distributed under the following terms:
-1) Licensed software - This product is distributed under the terms of the MIT license.
-2) Non-Warranted - Please refer to the terms of the MIT license.
-3) Liability waiver - Please refer to the terms of the MIT license.
+This beta version of the 'QView' program may be freely used and distributed under the terms of the MIT license.
 
 The MIT License (MIT)
 
