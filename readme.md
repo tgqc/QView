@@ -37,7 +37,7 @@ Qview:
 * Will read and **parse messages** from and to a queue.
 * Will **write back** or move read messages to any queue.
 
-Much of the functionality could do with some polishing.
+Much of the functionality could do with some polishing, and there is so much more we can do with the rich data model. 
 
 ###QView is functional.
 
