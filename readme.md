@@ -47,12 +47,28 @@ I have used the utility in my work as an MQ administrator, but it is still a bit
 
 The utility is based on the Netbeans 6 platform, and to be honest, the implementation of platform components is still a bit hacky. Please help refactor changes if you know how things SHOULD be done.
 
+
+###Getting started
+
+####To use the tool
+Simply select the download tab (https://github.com/tgqc/QView/downloads) and download 'qview_explorer.zip'. 
+Unzip to to any directory, such as'Program Files'. kick off qview/bin/qview.exe to test drive.
+Please report back on issues and feature requests.
+
+####To make changes and contribute
+Download Git from http://git-scm.com/
+create and CD to a working directory
+type 'git init'
+type 'git remote add origin git://github.com/tgqc/QView.git'
+type 'git pull origin master' ... the latest source will dowload.
+If you would like to be a regular contributer, let us know. tim@quietcode.com.
+
 ###Documentation and code commenting are sparse
-The project was begun in a hurry. Hopefully, most code will be self explanatory. Please help out with documentation and code comments where you can, and email me if you need any help unthreading it.
+The project was begun in a hurry. Hopefully, most code will be self explanatory. Please help out with documentation and code comments where you can, and email us if you need any help unthreading it.
 
 ###Too big?
 
-The package is VERY large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let me know.
+The package is VERY large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let us know.
 The QView-suite folder is a drop-in netbeans project with a bunch of superfluous files. The guts of the project is in the QView-suite/MQProject folder, but as a Netbeans Platform application, the app is best navigated using the Netbeans IDE.
 
 ###A big thanks
