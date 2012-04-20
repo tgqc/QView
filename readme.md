@@ -53,7 +53,8 @@ The utility is based on the Netbeans 6 platform, and to be honest, the implement
 ####To use the tool
 * Simply select the download tab (https://github.com/tgqc/QView/downloads) and download 'qview_explorer.zip'. 
 * Unzip to to any directory, such as'Program Files'. kick off qview/bin/qview.exe to test drive.
-* Please report back on issues and feature requests.
+
+Please report back on issues and feature requests.
 
 ####To make changes and contribute
 * Download Git from http://git-scm.com/
@@ -61,6 +62,7 @@ The utility is based on the Netbeans 6 platform, and to be honest, the implement
 * type 'git init'
 * type 'git remote add origin https://tgqc@github.com/tgqc/QView.git'
 * type 'git pull origin master' ... the latest source will dowload.
+
 If you would like to be a regular contributer, let us know. tim@quietcode.com.
 
 ###Documentation and code commenting are sparse
