@@ -59,12 +59,12 @@ Please report back on issues and feature requests.
 Download Git from http://git-scm.com/
 create and CD to a working directory
 type 'git init'
-type 'git remote add origin git://github.com/tgqc/QView.git'
+type 'git remote add origin https://tgqc@github.com/tgqc/QView.git'
 type 'git pull origin master' ... the latest source will dowload.
 If you would like to be a regular contributer, let us know. tim@quietcode.com.
 
 ###Documentation and code commenting are sparse
-The project was begun in a hurry. Hopefully, most code will be self explanatory. Please help out with documentation and code comments where you can, and email us if you need any help unthreading it.
+The project was begun in a hurry. However the MVC structure is not too hard to navigate, and hopefully most code will be self explanatory. Please help out with documentation and code comments where you can, and email us if you need any help unthreading it.
 
 ###Too big?
 
