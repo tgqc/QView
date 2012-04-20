@@ -63,6 +63,8 @@ Please report back on issues and feature requests.
 * type 'git remote add origin https://tgqc@github.com/tgqc/QView.git'
 * type 'git pull origin master' ... the latest source will dowload.
 
+Using Netbeans to code and test is not essential but recommended. Running the app from source is a one-click trick from the Netbeans IDE.
+
 If you would like to be a regular contributer, let us know. tim@quietcode.com.
 
 ###Documentation and code commenting are sparse
@@ -70,7 +72,7 @@ The project was begun in a hurry. However the MVC structure is not too hard to n
 
 ###Too big?
 
-The package is VERY large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let us know.
+The package is quite large, as it contains its own jre (1.5) for reasons of portability. This is probably not optimal. Drop the jre and use your own if you want a quicker download. If you think I should remove it, let us know.
 The QView-suite folder is a drop-in netbeans project with a bunch of superfluous files. The guts of the project is in the QView-suite/MQProject folder, but as a Netbeans Platform application, the app is best navigated using the Netbeans IDE.
 
 ###A big thanks
