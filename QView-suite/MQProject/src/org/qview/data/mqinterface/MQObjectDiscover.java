@@ -118,7 +118,10 @@ public class MQObjectDiscover extends Thread {
                 }
 
             } else {
-                qMgr.setDiscovery("Polling Enabled", Integer.valueOf("0"));
+                if (!qMgr.getConnName().equals(entryPoint.getConnName())) {
+                    qMgr.setDiscovery("Polling Enabled", Integer.valueOf("0"));
+                }
+                qMgr.setDiscovery("ConnectionId", "");
             }
         } catch (RuntimeException e) {
             entryPoint.updateOutput("RuntimeException: " + e.toString() + "\n");

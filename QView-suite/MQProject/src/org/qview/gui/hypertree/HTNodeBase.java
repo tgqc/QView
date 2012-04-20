@@ -49,7 +49,6 @@ public class HTNodeBase extends AbstractNode implements HTNode {
     private String uniqueName;
     private String networkName;
     private Hashtable fChildrenMQ = null; // the fChildrenMQ of this node
-    private Hashtable fSiblingsMQ = null; // peers - already plotted
     private int fShape = SHAPE_DEFAULT;
     private Color fColour = Color.MAGENTA;
     private boolean fSelected= false;
@@ -61,21 +60,18 @@ public class HTNodeBase extends AbstractNode implements HTNode {
     public HTNodeBase(String folder) {
         super(Children.LEAF);
         uniqueName = folder;
-        fChildrenMQ = new Hashtable();
-        fSiblingsMQ = new Hashtable();
-        fShape = SHAPE_QUEUE;
-        fColour = HTColours.Q_INNER;
+        fChildrenMQ= new Hashtable();        
+        fShape= SHAPE_QUEUE;
+        fColour= HTColours.Q_INNER;       
     } //HTSimpleNode
     public HTNodeBase(WMQObject mq) {
         super(Children.LEAF);
         repository = ObjectRepository.findInstance(networkName);
-        fMQObject = mq;
+        fMQObject= mq;
         uniqueName = mq.getUniqueName();
         networkName = mq.getNetworkName();
         
         fChildrenMQ= new Hashtable();
-        fSiblingsMQ= new Hashtable();
-        
         if (mq.getClass()== WMQChannel.class) {
             fShape= SHAPE_CHANNEL;
             fColour= HTColours.CH_INNER;
@@ -146,10 +142,6 @@ public class HTNodeBase extends AbstractNode implements HTNode {
         return fChildrenMQ.elements();
     } //fChildrenMQ
 
-    public Enumeration siblings() {
-        return fSiblingsMQ.elements();
-    } //fChildrenMQ
-
     public boolean isLeafNode() {
         return false;
         // means we will be able to add fChildrenMQ if needed
@@ -179,10 +171,6 @@ public class HTNodeBase extends AbstractNode implements HTNode {
         fChildrenMQ.put(child.getName(), child);
     } //addChild
 
-    public void addSibling(HTNodeBase sibling){
-        fSiblingsMQ.put(sibling.getName(), sibling);
-    } //addChild
-
     public void setSelected(boolean value) {
         fSelected= value;
     } //setSelected
@@ -209,10 +197,6 @@ public class HTNodeBase extends AbstractNode implements HTNode {
     
     public WMQObject getMQObject(){
         return this.fMQObject;
-    }
-
-    public boolean isRootNode() {
-        return (fHTModelNode.getParent() == null);
     }
     
 }

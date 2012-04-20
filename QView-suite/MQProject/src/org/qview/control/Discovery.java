@@ -25,6 +25,7 @@ public class Discovery extends Thread {
     private String hostName = "localhost";
     private Integer port = Integer.valueOf("1414");
     private String channel = "SYSTEM.ADMIN.SVRCONN";
+    private String connId = "";
     private String instName;    
     
     public Discovery(String conName) {
@@ -50,8 +51,13 @@ public class Discovery extends Thread {
         } else {
             channel = "SYSTEM.DEF.SVRCONN";
         }
+        if (ep.getDiscovery("Connection Id") != null){
+            connId = (String) ep.getDiscovery("Connection Id");
+        } else {
+            connId = "";
+        }
                
-        repository = ObjectRepository.createInstance(instName, port, channel);
+        repository = ObjectRepository.createInstance(instName, port, channel, connId);
     }
 
     /** Iterate through unmapped Qmgrs in reposirtory and manage discovery threads.

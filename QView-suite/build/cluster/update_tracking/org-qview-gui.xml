@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module codename="org.qview.gui/040000">
-    <module_version install_time="1262564494953" last="true" origin="installer" specification_version="1.0.040000">
+    <module_version install_time="1334895807828" last="true" origin="installer" specification_version="1.0.040000">
         <file crc="3488590696" name="config/Modules/org-qview-gui.xml"/>
-        <file crc="2707841783" name="modules/org-qview-gui.jar"/>
+        <file crc="1233155562" name="modules/org-qview-gui.jar"/>
     </module_version>
 </module>

@@ -182,13 +182,5 @@ public class HTFileNode
         fHTModelNode= value;
     }
 
-    public Enumeration siblings() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean isRootNode() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }
 

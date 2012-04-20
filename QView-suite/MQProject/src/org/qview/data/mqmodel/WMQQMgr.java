@@ -21,6 +21,7 @@ public class WMQQMgr extends WMQObject implements Serializable {
     private final String LOCAL_MGR = "Local-Mgr";
     private String hostName;    
     private Integer port;
+    private String connId = "";
     private String svrConnChannel = "SYSTEM.DEF.SVRCONN";
     private WMQQMgr localQMgr = null; // QMgr via which PCF messages will hop.
     private String localAddress = null; // QMgr address for firewall purposes.
@@ -45,7 +46,8 @@ public class WMQQMgr extends WMQObject implements Serializable {
         this.setDiscovery(LOCAL_ADDR, "");
         this.setDiscovery(LOCAL_MGR, "");
         this.setDiscovery("Port", Integer.valueOf("1414"));
-        this.setDiscovery("SvrConnChl", EntryPoint.findInstance(networkName).getDiscovery("Channel"));        
+        this.setDiscovery("SvrConnChl", EntryPoint.findInstance(networkName).getDiscovery("Channel"));
+        this.setDiscovery("ConnectionId", EntryPoint.findInstance(networkName).getDiscovery("Connection Id"));
         this.setDiscovery("Q Threshold Critical", "");
         this.setDiscovery("Q Threshold Warning", "");        
         this.setDiscovery("Monitoring Enabled", Integer.valueOf("1"));
@@ -59,6 +61,19 @@ public class WMQQMgr extends WMQObject implements Serializable {
         this.setDiscovery("Polling Enabled", explore);
         this.network = networkName;   
     }
+        public WMQQMgr(String c, String host, Integer prt, String channel, String connectionId, String networkName){
+        this(c, networkName);
+        System.out.println("WMQQMgr : hostName " + c);
+        this.hostName = host;
+        this.port = prt;
+        this.svrConnChannel = channel;
+        this.connId = connectionId;
+        this.setDiscovery("Host", host);
+        this.setDiscovery("Port", prt);
+        this.setDiscovery("SvrConnChl", channel);
+        this.setDiscovery("ConnectionId", connectionId);
+    }
+    /* TODO : To be removed */
     public WMQQMgr(String c, String host, Integer prt, String channel, String networkName){           
         this(c, networkName);
         System.out.println("WMQQMgr : hostName " + c); 
@@ -67,7 +82,7 @@ public class WMQQMgr extends WMQObject implements Serializable {
         this.svrConnChannel = channel;
         this.setDiscovery("Host", host);
         this.setDiscovery("Port", prt);
-        this.setDiscovery("SvrConnChl", channel);        
+        this.setDiscovery("SvrConnChl", channel);   
     }
     // this overriding method is to set the STATUS to Running
     public void setUpdated(String updateString){        
@@ -79,7 +94,8 @@ public class WMQQMgr extends WMQObject implements Serializable {
         }        
     }    
     public boolean isPollable(){
-        return (((((Integer)this.discoveryMap.get("Polling Enabled")).intValue() == 1)) && (((Integer)this.discoveryMap.get("Polling Enabled")).intValue() == 1));
+        // return (((((Integer)this.discoveryMap.get("Polling Enabled")).intValue() == 1)) && (((Integer)this.discoveryMap.get("Polling Enabled")).intValue() == 1));
+        return ((((Integer)this.discoveryMap.get("Polling Enabled")).intValue() == 1));
     }
 
     public synchronized void addQueue(WMQQueue newQueue){
@@ -153,6 +169,13 @@ public class WMQQMgr extends WMQObject implements Serializable {
     }
     public String getConnName(){
         return (this.hostName + "(" + this.port + ")");
+    }
+    public String getConnId(){
+        String connectionId = (String) this.getDiscovery("ConnectionId");
+        if (connectionId == null){
+            connectionId = this.connId;
+        }
+        return connectionId;
     }
     public String getSvrConnChl(){
         String svrconn = (String) this.getDiscovery("svrConnCh");

@@ -32,6 +32,7 @@ public class MQConnect {
 
     private String hostName = "localhost";
     private Integer port = Integer.valueOf("1414");
+    private String connId = "";
     private String svrConnChannel = "SYSTEM.DEF.SVRCONN";
     private String[] svrConnFallback = new String[]{"SYSTEM.DEF.SVRCONN", "SYSTEM.AUTO.SVRCONN", "SYSTEM.ADMIN.SVRCONN"};
     private int lastMQrc;
@@ -63,6 +64,7 @@ public class MQConnect {
         this.repository = ObjectRepository.findInstance(networkName);
         this.hostName = qMgr.getHostName();
         this.port = qMgr.getPort();
+        this.connId = qMgr.getConnId();
         this.svrConnChannel = qMgr.getSvrConnChl();
         if (hopEnabled) {
              this.localQMgr = qMgr.getLocalQMgr();
@@ -159,6 +161,7 @@ public class MQConnect {
         if (localQMgr != null) {
             this.hostName = localQMgr.getHostName();
             this.port = localQMgr.getPort();
+            this.connId = qMgr.getConnId();
             this.svrConnChannel = localQMgr.getSvrConnChl();
             if (localAddrEnabled) {
                 localAddress = localQMgr.getLocalAddress(); // ordinarily null
@@ -177,6 +180,9 @@ public class MQConnect {
         props.put(MQC.HOST_NAME_PROPERTY, this.hostName);
         props.put(MQC.PORT_PROPERTY, this.port);
         props.put(MQC.TRANSPORT_PROPERTY, MQC.TRANSPORT_MQSERIES_CLIENT);
+        if ((connId != null) && (!connId.equals(""))) {
+            props.put(MQC.USER_ID_PROPERTY, this.connId);
+        }
         
         try {
             mqqmgr = new MQQueueManager("", props);

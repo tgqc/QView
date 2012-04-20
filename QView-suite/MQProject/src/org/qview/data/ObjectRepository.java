@@ -33,7 +33,8 @@ public class ObjectRepository implements Serializable {
     private transient MQConstants mqconstants;
     private ConcurrentHashMap repository;
     private Integer defaultPort;
-    private String defaultSvrConnChl; 
+    private String defaultSvrConnChl;
+    private String defaultConnId;
     private String instName;
     
     /** Creates a new instance of ObjectRepository */
@@ -58,7 +59,15 @@ public class ObjectRepository implements Serializable {
         } else {
             return new ObjectRepository(thisName);
         }        
-    }      
+    }    
+    public static ObjectRepository createInstance(String newName, Integer portNo, String channelName, String connectionId) {
+          ObjectRepository instance = findInstance(newName);
+          instance.defaultPort = portNo;
+          instance.defaultSvrConnChl = channelName;
+          instance.defaultConnId = connectionId;
+          return instance;
+    }
+    /* TODO : To Be Removed!!!! */
     public static ObjectRepository createInstance(String newName, Integer portNo, String channelName) {
           ObjectRepository instance = findInstance(newName);
           instance.defaultPort = portNo;
@@ -323,9 +332,9 @@ public class ObjectRepository implements Serializable {
 //        System.out.println("getQMgrName(connName) : " + getQMgrName(connName));
         if (getQMgrName(connName) == null){ // already exists in repository
             String networkName = this.instName;
-            WMQQMgr qMgr = new WMQQMgr(connName, hostName, port, defaultSvrConnChl, networkName);
+            WMQQMgr qMgr = new WMQQMgr(connName, hostName, port, defaultSvrConnChl, defaultConnId, networkName);
             if (softQMgrName != null) { qMgr.setCaption(softQMgrName); }
-            qMgr.addPeer(connectedQMgr.getHostName(), connectedQMgr.getPort()); 
+            qMgr.addPeer(connectedQMgr.getHostName(), connectedQMgr.getPort());
             addToRepository(qMgr);
             System.out.println("add QMgr to repository : " + qMgr.getUniqueName());
         } else {
@@ -337,7 +346,7 @@ public class ObjectRepository implements Serializable {
             System.out.println("dont add, set as peer : " + getQMgrName(connName));
         }
         connectedQMgr.addPeer(hostName, port);
-    }        
+    }
     /*     
      * Creates new QMgr from 'EntryPoint' details entered by user.
      */
@@ -346,7 +355,7 @@ public class ObjectRepository implements Serializable {
         String networkName = this.instName;
         WMQQMgr qMgr = null;
         if (!repository.containsKey(qMgrName)){
-            qMgr = new WMQQMgr(qMgrName, hostName, port, defaultSvrConnChl, networkName);
+            qMgr = new WMQQMgr(qMgrName, hostName, port, defaultSvrConnChl, defaultConnId, networkName);
             qMgr.setDiscovery("Polling Enabled", Integer.valueOf("1"));
             addToRepository(qMgr);
         }        

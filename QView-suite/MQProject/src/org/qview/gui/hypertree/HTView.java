@@ -234,7 +234,6 @@ public class HTView extends JPanel implements Printable {
         }
         fHTDraw.refreshScreenCoordinates();
         fHTDraw.drawBranches(g);
-//        fHTDraw.drawSiblingBranches(g);
         fHTDraw.drawNodes(g);
     }
 

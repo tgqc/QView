@@ -58,6 +58,7 @@ public class EntryPoint  implements Serializable {
         entryPointMap.put("Host", "localhost");
         entryPointMap.put("Port", Integer.valueOf("1414"));
         entryPointMap.put("Channel", "SYSTEM.DEF.SVRCONN");
+        entryPointMap.put("Connection Id", "");
         entryPointMap.put("Q Threshold Critical", "90%");
         entryPointMap.put("Q Threshold Warning", "75%");
         entryPointMap.put("Monitoring Enabled", Integer.valueOf("1"));        
@@ -85,7 +86,7 @@ public class EntryPoint  implements Serializable {
 //        repository = ObjectRepository.findInstance(this.name);
         serializeInstances();
     }
-    public EntryPoint(String newName, String host, Integer port, String channel) {
+    public EntryPoint(String newName, String host, Integer port, String channel, String connId) {
         this();
         this.name = newName;
 //        repository = ObjectRepository.findInstance(newName);
@@ -93,6 +94,7 @@ public class EntryPoint  implements Serializable {
         entryPointMap.put("Host", host);
         entryPointMap.put("Port", port);
         entryPointMap.put("Channel", channel);
+        entryPointMap.put("Connection Id", connId);
         
         namedInstances.put(newName, this);
 //        repository = ObjectRepository.findInstance(this.name);
