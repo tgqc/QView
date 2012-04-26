@@ -3,13 +3,13 @@ title: QView
 
 description: QView MQ network explorer
 
-author: Tim Goodwill
+author: Tim Goodwill, mqsysadmin@gmail.com
 
 tags: MQ, queue, MQ network, MQ administration
 
 created:  2006
 
-uploaded: 2012
+uploaded: April 2012
 
 ---
 
@@ -38,12 +38,13 @@ Qview:
 * Will **write back** or move read messages to any queue.
 
 Much of the functionality could do with some polishing, and there is so much more we can do with the rich data model. 
+See the roadmap section of the wiki for discussion on current effort and feautre requests.
 
 ###QView is functional.
 
 Some of these functions, such as reading and writing messages, are very rudimentary.
 
-I have used the utility in my work as an MQ administrator, but it is still a bit rough around the edges. It is too large for one man alone to manage. There is great potential for this software, but I NEED YOUR HELP to round out features and to log and address issues.
+I have used the utility in my work as an MQ administrator, but it is still a bit rough around the edges. It is too large for one man alone to manage. There is great potential for this software, but WE NEED YOUR HELP to round out features and to log and address issues.
 
 The utility is based on the Netbeans 6 platform, and to be honest, the implementation of platform components is still a bit hacky. Please help refactor changes if you know how things SHOULD be done.
 
@@ -65,7 +66,7 @@ Please report back on issues and feature requests.
 
 Using Netbeans to code and test is not essential but recommended. Running the app from source is a one-click trick from the Netbeans IDE.
 
-If you would like to be a regular contributer, let us know. tim@quietcode.com.
+If you would like to be a regular contributer, let us know. mqsysadmin@gmail.com.
 
 ###Documentation and code commenting are sparse
 The project was begun in a hurry. However the MVC structure is not too hard to navigate, and hopefully most code will be self explanatory. Please help out with documentation and code comments where you can, and email us if you need any help unthreading it.
