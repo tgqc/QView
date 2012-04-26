@@ -3,9 +3,11 @@ title: QView
 
 description: QView MQ network explorer
 
+platform: Java, Netbeans Platform
+
 author: Tim Goodwill, mqsysadmin@gmail.com
 
-tags: MQ, queue, MQ network, MQ administration
+tags: MQ, queue, MQ network, MQ administration, MQ explorer
 
 created:  2006
 
@@ -38,7 +40,7 @@ Qview:
 * Will **write back** or move read messages to any queue.
 
 Much of the functionality could do with some polishing, and there is so much more we can do with the rich data model. 
-See the roadmap section of the wiki for discussion on current effort and feautre requests.
+See the roadmap section of the wiki for discussion on current effort and feature requests.
 
 ###QView is functional.
 
