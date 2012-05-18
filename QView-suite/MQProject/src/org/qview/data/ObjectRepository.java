@@ -103,6 +103,34 @@ public class ObjectRepository implements Serializable {
         return (WMQObject) repository.get(name);
     }
     /**
+     * retrieve all WMQObject objects in repository matching caption
+     */
+    public ArrayList findInRepository(String caption) {
+        ArrayList WMQObjects = new ArrayList();
+        Iterator e = repository.values().iterator();
+        while (e.hasNext()) {
+            WMQObject obj = (WMQObject) e.next();
+            if (obj.getCaption().equals(caption)){
+                WMQObjects.add(obj);
+            }
+        }
+        return WMQObjects;
+    }
+    public WMQChannel getReceiver(String channelName, String connName){
+        WMQChannel channelObj = null;
+        Iterator e = repository.values().iterator();
+        while (e.hasNext()) {
+            Object obj = e.next();
+            if (obj.getClass() == WMQChannel.class){
+                WMQChannel chObj = (WMQChannel) obj;
+                if ((chObj.getCaption().equals(channelName)) && (chObj.getParentQM().getConnName().equals(connName))){
+                    channelObj = chObj;
+                }
+            }
+        }
+        return channelObj;
+    }
+    /**
      * add generic WMQObject object to repository 
      */
     public void addToRepository(WMQObject mqObj){
@@ -175,6 +203,7 @@ public class ObjectRepository implements Serializable {
      * and return QMgr Name corresponding to given connName parameter.
      */
     public String getQMgrName(String connName) {
+        connName = connName.trim();
         String qMgrName = null;
         Iterator e = repository.values().iterator();
         while ((qMgrName == null) && e.hasNext()) {            
@@ -386,7 +415,7 @@ public class ObjectRepository implements Serializable {
     
     public void reportChannel(String chName, HashMap chAttr, WMQQMgr qMgr) {
         Integer chTypeInt = (Integer) chAttr.get("Channel Type");
-        String chType = mqconstants.getStatusName("Channel Type", chTypeInt);
+        String chType = mqconstants.getStatusName("Channel Type", (Integer) chTypeInt);
         
         WMQChannel thisChannel = null;
         Object thisObject = getFromRepository(qMgr.getUniqueName() + "." + chType + "." + chName);

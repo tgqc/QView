@@ -161,7 +161,7 @@ public class WMQObject implements Serializable {
         if (!clusterList.isEmpty()){
             return (String) clusterList.get(0);
         } else {
-            return null;
+            return (String) this.attributes.get("Cluster Name");
         }
 //        return this.clusterName;        
     }    

@@ -170,6 +170,12 @@ public class HTNodeBase extends AbstractNode implements HTNode {
     public void addChild(HTNodeBase child){
         fChildrenMQ.put(child.getName(), child);
     } //addChild
+    public boolean hasChildren(){
+        return !fChildrenMQ.isEmpty();
+    }
+    public void setChildren(Hashtable children) {
+        fChildrenMQ = children;
+    } //setChildren
 
     public void setSelected(boolean value) {
         fSelected= value;
@@ -197,6 +203,13 @@ public class HTNodeBase extends AbstractNode implements HTNode {
     
     public WMQObject getMQObject(){
         return this.fMQObject;
+    }
+
+    public boolean isNodeHub() {
+//        boolean isSenderChannel = (this.fMQObject.getClass() == WMQChannel.class) && (((Integer)((WMQChannel) this.fMQObject).getAttribute("Channel Type")) < 5);
+//        boolean isSenderChannel = (this.fMQObject.getClass() == WMQChannel.class) && (((WMQChannel) this.fMQObject).getAttribute("Connection Name") != null);
+//        return isSenderChannel;
+        return this.fMQObject.getClass() == WMQQMgr.class;
     }
     
 }
