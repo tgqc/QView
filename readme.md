@@ -1,5 +1,5 @@
 ---
-!!News
+###News
 
 **QView v0.6 preview distribution is up!**
 Improvements include accurate peer map model, new MQ network reports menu, various bug fixes.
