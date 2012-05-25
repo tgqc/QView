@@ -2,7 +2,8 @@
 ###!News
 
 **QView v0.6 preview distribution is up!**
-Improvements include accurate peer map model, new MQ network reports menu, various bug fixes.
+
+Improvements include more accurate peer map model, new MQ network reports menu, various bug fixes.
 
 To Download, select the download tab (https://github.com/tgqc/QView/downloads) and download 'qview_v0.6_preview.zip'. 
 
@@ -79,6 +80,7 @@ The QView-suite folder is a drop-in netbeans project with a bunch of superfluous
 * To Trung Nguyen for the use of and opportunity to disect his extensive original MQ PCF libraries.
 * To the Netbeans project for their work on the platform (http://netbeans.org/features/platform/). A great way to get up and running quickly.
 * To Chistophe Bouthier (http://christ.bouthier.free.fr/t) for his work on the hypertree library.
+
 
 
 ---
