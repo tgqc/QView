@@ -7,7 +7,9 @@ Improvements include more accurate peer map model, new MQ network reports menu, 
 
 To Download, select the download tab (https://github.com/tgqc/QView/downloads) and download 'qview_v0.6.0.zip' or 'qview_v0.6_installer'. 
 
-Unzip to to any directory, such as'Program Files'. kick off qview/bin/qview.exe to test drive.
+Unzip to to any directory, such as'Program Files'. kick off qview/bin/qview.exe to test drive. 
+The [quickstart quide] (https://github.com/downloads/tgqc/QView/QView_QuickStart_Guide.doc "QuickStart_Guide") will help you set up. 
+
 
 ---
 
