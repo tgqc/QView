@@ -83,6 +83,9 @@ The QView-suite folder is a drop-in netbeans project with a bunch of superfluous
 * To the Netbeans project for their work on the platform (http://netbeans.org/features/platform/). A great way to get up and running quickly.
 * To Chistophe Bouthier (http://christ.bouthier.free.fr/t) for his work on the hypertree library.
 
+###IBM MQ Client classes
+IBM retain ownserhip of the 'com.ibm.mq' jave client libraries. Terms and conditions can be found under the 'QView-Suite/com.ibm.mq' and 'QView-suite\com.ibm.mq\release\modules\ext' directories. If you plan to use this tool in a commercial setting, please be confident of your authorization to use these libraries by downloading a free copy of the client code directly from IBM.
+
 
 
 ---
