@@ -29,6 +29,7 @@ package org.qview.gui.hypertree;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.FontMetrics;
+import java.util.HashMap;
 
 /**
  * The HTDrawNode class contains the drawing coordinates of a HTModelNode 
@@ -40,7 +41,7 @@ import java.awt.FontMetrics;
  */
 class HTDrawNode {
 
-    protected   HTDraw              fModelDraw    = null;  // drawing fModelDraw
+    protected   HTDraw            fModelDraw    = null;  // drawing fModelDraw
     private   HTModelNode         fNodeModel     = null;  // encapsulated HTModelNode
  
     private   HTCoordE            fze       = null;  // current euclidian coords
@@ -156,6 +157,10 @@ class HTDrawNode {
         return fNodeModel.getName();
     }
 
+    String getUniqueName() {
+        return fNodeModel.getUniqueName();
+    }
+
     public HTModelNode getFNodeModel() {
         return fNodeModel;
     }
@@ -241,6 +246,18 @@ class HTDrawNode {
             System.out.println("Unable to add node "+ childModel.getNode().getName()+" to parent "+ parentModel.getNode().getName()+" (Parent is HTDrawNode)");
         } //if           
     } //addNewChild
+    void addChild(HTDrawNode childDraw) {
+        fModelDraw.addHTDrawNode(childDraw);
+    }
+    void addChild(HTDrawNodeComposite childDraw) {
+        fModelDraw.addHTDrawNode(childDraw);
+    }
+    HTDrawNode getChild(String key) {
+        return fModelDraw.getHTDrawNode(key);
+    }
+    HashMap getChildren() {
+        return fModelDraw.getHTDrawNodes();
+    }
 
     
     /**

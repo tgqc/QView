@@ -30,6 +30,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Insets;
 //PDA
+import java.util.HashMap;
 import javax.swing.SwingUtilities;
 
 //PDA
@@ -50,7 +51,7 @@ class HTDraw {
     protected HTModel    fHTModel    = null;  // the tree fHTModel
     private HTView     fView     = null;  // the fView using this drawing fHTModel
     private HTDrawNode fDrawRoot = null;  // the root of the drawing tree 
-
+    private HashMap    HTDrawNodes = null;  // collection of HTDrawNodes
     private HTCoordS   fsOrigin  = null;  // origin of the screen plane
     private HTCoordS   fsMax     = null;  // max point in the screen plane 
 
@@ -83,6 +84,7 @@ class HTDraw {
         this.fView = view;
         this.fHTModel = htModel;
         HTModelNode rootModel = htModel.getRoot();
+        HTDrawNodes = new HashMap();
         fsOrigin = new HTCoordS();
         fsMax = new HTCoordS();
 
@@ -118,6 +120,18 @@ class HTDraw {
         fDrawRoot.addNewChild(parentModel, childModel);
     } //addNewChild
 
+    void addHTDrawNode(HTDrawNode drawNode){
+        HTDrawNodes.put(drawNode.getUniqueName(), drawNode);
+    }
+    void addHTDrawNode(HTDrawNodeComposite drawNode){
+        HTDrawNodes.put(drawNode.getUniqueName(), drawNode);
+    }
+    HTDrawNode getHTDrawNode(String key){
+        return (HTDrawNode) HTDrawNodes.get(key);
+    }
+    HashMap getHTDrawNodes() {
+        return HTDrawNodes;
+    }
   /* --- Screen coordinates --- */
 
     /**

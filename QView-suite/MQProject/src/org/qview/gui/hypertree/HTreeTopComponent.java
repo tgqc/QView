@@ -295,6 +295,7 @@ public class HTreeTopComponent extends TopComponent {
             }
         });
 
+        jCheckInactive.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(jCheckInactive, "Inactive");
         jCheckInactive.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckInactive.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -352,6 +353,7 @@ public class HTreeTopComponent extends TopComponent {
             }
         });
 
+        jCheckRunning.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(jCheckRunning, "Running");
         jCheckRunning.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckRunning.setMargin(new java.awt.Insets(0, 0, 0, 0));

@@ -145,7 +145,8 @@ public class GuiDataAdapter {
             if ((mqobj.getClass() == WMQQMgr.class) || (mqobj.getClass() == WMQQueue.class) || (mqobj.getClass() == WMQChannel.class)){
                 discMap = updateValues(mqobj.getDiscoveryMap());
                 statusMap = updateValues(mqobj.getStatiiMap());
-                attrMap = updateValues(mqobj.getAttributesMap());                
+                attrMap = updateValues(mqobj.getAttributesMap());
+
                 propsMap.put("Discovery", discMap);
                 propsMap.put("Status", statusMap);                
                 propsMap.put("Attributes", attrMap);                
@@ -200,7 +201,7 @@ public class GuiDataAdapter {
                     
                     // check to see if node property "system" is show or hide
                     if (notSystem || showSystemIsSelected){
-                        value = mqconstants.getStatusName("ChannelStatus", (Integer) ch.getStatus("Channel Status"));
+                        value = mqconstants.getStatusName("Channel Status", (Integer) ch.getStatus("Channel Status"));
                         if (value != null){
                             statusMap.put(ch.getCaption(), value);
                         } else {
@@ -229,6 +230,7 @@ public class GuiDataAdapter {
     public HashMap updateValues(HashMap thisMap){
         String valType = null;
         Object value = null;
+        Class valClass = null;
         Boolean boolValue = null;
         ArrayList dropdown = null;
         String stringValue = null;
@@ -242,20 +244,25 @@ public class GuiDataAdapter {
                 item = (String) next;
             }
             value = thisMap.get(item);
-            valType = getValType(item);
+            valClass = value.getClass();
+            valType = getValType(item);  // legacy
 
-            if (valType != null){   // may not exist in properties table
-                if (valType.equalsIgnoreCase("Boolean")){
-                    boolValue = Boolean.valueOf(((Integer)value).intValue() == 1);
-                    thisMap.put(item, boolValue);
-    //                System.out.println("*****" + item + " : " + value + " : " + boolValue);
-                } else if (valType.equalsIgnoreCase("ArrayList")){
-    //                dropdown = MQConstants... TODO
-                } else if ((value != null) && (value.getClass() == Integer.class)) {
+            if ((valType != null) && (valType.equals("Boolean"))) {
+                boolValue = Boolean.valueOf(((Integer)value).intValue() == 1);
+                thisMap.put(item, boolValue);
+//                System.out.println("*****" + item + " : " + value + " : " + boolValue);
+            } else if ((valClass == ArrayList.class) || ((valType != null) && (valType.equals("ArrayList")))){
+//                dropdown = MQConstants... TODO
+                String listAsString = ((ArrayList) value).toString();
+                thisMap.put(item, listAsString);
+            } else if (valClass == Integer.class) {
+                try {
                     stringValue = mqconstants.getStatusName(item, (Integer) value);
-                    if (stringValue != null){
-                        thisMap.put(item, stringValue);
+                    if (stringValue != null) {
+                        thisMap.put(next, stringValue);
                     }
+                } catch (Exception ex) {
+                    // do nothing
                 }
             }
         }
@@ -299,7 +306,7 @@ public class GuiDataAdapter {
     public String getValType(String item){
         if (valTypeMap.isEmpty()){
             setValTypeMap();
-        }        
+        }
         return (String) valTypeMap.get(item);
     }
          
@@ -356,9 +363,9 @@ public class GuiDataAdapter {
         valTypeMap.put("Performance Event", "Boolean");
         valTypeMap.put("Start Stop Event", "Boolean");
         valTypeMap.put("Authority Event", "Boolean");
-        valTypeMap.put("Local Event", "Boolean"); 
-        valTypeMap.put("Logger Event", "Boolean"); 
-        valTypeMap.put("Trigger Control", "Boolean");        
+        valTypeMap.put("Local Event", "Boolean");
+        valTypeMap.put("Logger Event", "Boolean");
+        valTypeMap.put("Trigger Control", "Boolean");
     }
 //-----------------NBNode metrics-----------------------------------------------  
     

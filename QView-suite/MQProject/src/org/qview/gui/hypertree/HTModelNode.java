@@ -121,6 +121,11 @@ class HTModelNode {
         return htNode.getName();
     }
 
+    String getUniqueName() {
+        return ((HTNodeBase) htNode).getUniqueName();
+    }
+
+
 
   /* --- Weight Managment --- */
 
