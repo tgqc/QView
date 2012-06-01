@@ -3,7 +3,7 @@
 
 **MQ Client libraries have been removed from source pending legal advice from IBM**
 
-Download packages that bundled the IBM Java PCF libraries have also been removed. A contributer has undertaken to replace them in teh short term with packages that utilise the PCF libraries that are bundled with the free IBM MQ Client install which is available from IBM at http://www-304.ibm.com/support/docview.wss?rs=171&uid=swg24019253&loc=en_US&cs=utf-8&lang=en
+Download packages that bundled the IBM Java PCF libraries have also been removed. A contributer has undertaken to replace them in the short term with packages that utilise the PCF libraries that are bundled with the free IBM MQ Client install which is available from IBM at http://www-304.ibm.com/support/docview.wss?rs=171&uid=swg24019253&loc=en_US&cs=utf-8&lang=en
 
 
 ---
@@ -61,7 +61,8 @@ Please report back on issues and feature requests.
 IBM retain ownserhip of the 'com.ibm.mq' jave client libraries.  
 IBM Java PCF libraries, and the Terms and conditions under which they were released, were until recently located in the 'QView-suite\com.ibm.mq\release\modules\ext' directory. They have been subsequently removed pending the outcome of discussions with IBM.
 
-Until either an agreement is reached with IBM on lawful bundling of the libraries, or the code is updated to look for the libraries as part of an MQ client install, yuo may choose to place your own lawfully obtained MQ client Java libraries in the 'QView-suite\com.ibm.mq\release\modules\ext' directory to enble you to satisfy dependencies within netbeans.
+We have approached IBM seeking an agreement to allow lawful bundling of the libraries. A contributor has undertaken to code a fallbck measure to look for the libraries as part of an MQ client install - work is already underway.
+In the short term, you may choose to place your own lawfully obtained MQ client Java libraries in the 'QView-suite\com.ibm.mq\release\modules\ext' directory to enble you to satisfy dependencies within netbeans.
 
 ####Via Git
 * Download Git from http://git-scm.com/
